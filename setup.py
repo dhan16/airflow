@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="drypy_airflow",
-    version="0.0.3",
+    version="0.0.4",
     author="dhan16",
     author_email="chandan.nath@gmail.com",
     description="Airflow extensions",
