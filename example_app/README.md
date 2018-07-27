@@ -8,6 +8,10 @@
     5. airflow webserver --port 8080
     6. go to localhost:8080
 
+### Test 
+    1. airflow list_tasks dag101 --tree
+    2. airflow test dag101 print_complex 2015-06-01
+
 #### References
     1. https://github.com/mikeghen/airflow-tutorial
     2. https://github.com/hgrif/airflow-tutorial
