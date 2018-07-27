@@ -19,10 +19,14 @@ default_args = {
 }
 
 
-def foo(templates_dict, *args, **kwargs):
-    print(templates_dict)
-    dag101_fns.print_number(templates_dict['n'])
-    return templates_dict['n']
+def foo(*args, **kwargs):
+    dag_run_ = kwargs['dag_run']
+    if dag_run_ is None:
+        return False
+    dag_run_params = dag_run_.conf
+    n = dag_run_params.get('n')
+    dag101_fns.print_number(n)
+    return n
 
 
 with DAG('dynamic_dag',
@@ -30,31 +34,22 @@ with DAG('dynamic_dag',
          catchup=False,
          schedule_interval=None,
          ) as dag:
+    # this only works with trigger_dag
+    python_paramed = PythonOperator(task_id='python_paramed',provide_context=True,python_callable=foo)
 
-    print_hello = BashOperator(task_id='print_hello',
-                               bash_command='echo "hello"')
-    sleep = BashOperator(task_id='sleep',
-                         bash_command='sleep 5')
-    print_number = PythonOperator(task_id='print_number',
-                                  provide_context=True,
-                                  templates_dict={'n': '{{ n }}'},
-                                  # params={'n': 0},
-                                  python_callable=foo)
-
+    # params.n  works with airflow test and dag_run.conf.n works with airflow trigger_dag
     templated_command = """
-        {% for i in range(5) %}
-            echo "{{ ds }}"
-            echo "{{ macros.ds_add(ds, 7)}}"
-            echo "{{ params.my_param }}"
+        {% for i in range(2) %}
+            echo {{ ds }}
+            echo {{ dag_run.conf.n if dag_run else params.n }}
         {% endfor %}
     """
-
-    t3 = BashOperator(
-        task_id='templated',
+    bash_templated = BashOperator(
+        task_id='bash_templated',
         bash_command=templated_command,
-        params={'my_param': 'Parameter I passed in'},
+        params={'n': 'default_n'},
         dag=dag)
 
 
-print_hello >> sleep >> print_number
-t3
+python_paramed
+bash_templated
