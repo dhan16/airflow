@@ -11,6 +11,8 @@
 ### Test 
     1. airflow list_tasks dag101 --tree
     2. airflow test dag101 print_complex 2015-06-01
+    3. airflow test dynamic_dag templated 2015-06-01 -tp '{"my_param":"~/path" }'
+    4. airflow test dynamic_dag print_number 2015-06-01 -tp '{"n":"5" }'
 
 #### References
     1. https://github.com/mikeghen/airflow-tutorial

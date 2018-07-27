@@ -13,3 +13,8 @@ def print_complex():
     z.print()
     return 'Whatever'
 
+
+def print_number(n):
+    x = Complex(n, 0)
+    x.print()
+
