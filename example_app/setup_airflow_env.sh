@@ -4,5 +4,6 @@ mkdir -p $POSTGRES_HOME
 mkdir -p $AIRFLOW_HOME 
 
 export AIRFLOW__CORE__LOAD_EXAMPLES="False"
+export AIRFLOW__CORE__DAGS_FOLDER="$(pwd)"/example_app/dags
 export AIRFLOW__CORE__EXECUTOR="LocalExecutor"
 export AIRFLOW__CORE__SQL_ALCHEMY_CONN="postgresql+psycopg2://postgres:passw0rd@localhost:5432/postgres"
