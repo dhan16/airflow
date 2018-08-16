@@ -9,15 +9,19 @@
     6. go to localhost:8080
 
 ### Test 
-    1. airflow list_tasks dag101 --tree
-    2. airflow test dag101 print_complex 2015-06-01
-    3. airflow test dynamic_dag bash_templated 2015-06-01 -tp '{"n":1 }'
+    * airflow list_tasks dag101 --tree
+    * airflow test dag101 print_complex 2015-06-01
+    * airflow test triggered_dag101 bash_templated 2015-06-01 -tp '{"n":1 }'
 
 ### Trigger DAG dynamically
-    1. airflow trigger_dag dynamic_dag -c '{"n":2 }' -e 2018-07-31T09:21:22
-    2. airflow dag_state dynamic_dag 2018-07-31T09:21:22
-    3. airflow task_state dynamic_dag bash_templated 2018-07-31T09:21:22
+    * airflow trigger_dag triggered_dag101 -c '{"n":2 }' -e 2018-07-31T09:21:22
+
+### Get state
+    * airflow dag_state triggered_dag101 2018-07-31T09:21:22
+    * airflow task_state triggered_dag101 bash_templated 2018-07-31T09:21:22
 
 #### References
     1. https://github.com/mikeghen/airflow-tutorial
     2. https://github.com/hgrif/airflow-tutorial
+    3. https://github.com/astronomerio/airflow-guides/blob/master/guides/dynamically-generating-dags.md
+    4. https://github.com/trbs/airflow-examples/blob/master/dags/example_python_operator.py

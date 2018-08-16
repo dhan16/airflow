@@ -29,7 +29,7 @@ def foo(*args, **kwargs):
     return n
 
 
-with DAG('dynamic_dag',
+with DAG('triggered_dag101',
          default_args=default_args,
          catchup=False,
          schedule_interval=None,
