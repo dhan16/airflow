@@ -15,6 +15,7 @@
 
 ### Trigger DAG dynamically
     * airflow trigger_dag triggered_dag101 -c '{"n":2 }' -e 2018-07-31T09:21:22
+    * Add file file3 to dynamic_dags_context for dynamic_dag102 to pick up new dag dynamic_dag102_file3
 
 ### Get state
     * airflow dag_state triggered_dag101 2018-07-31T09:21:22
