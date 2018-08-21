@@ -15,10 +15,11 @@ default_args = {
 def create_dag(dag_id, schedule, default_args):
     dag = DAG(dag_id, schedule_interval=schedule, catchup=False, default_args=default_args)
 
-    def hello_world(*args):
-        print('hello_world DAG_ID:{}'.format(dag_id))
+    def hello_world(*args, **kwargs):
+        print('hello_world DAG_ID:{} args:{} kwargs:{}'.format(dag_id, args, kwargs))
+        print('run_id is {}'.format(kwargs['dag_run'].run_id))
     with dag:
-        t1 = PythonOperator(task_id='hello_world',python_callable=hello_world)
+        t1 = PythonOperator(task_id='hello_world',python_callable=hello_world, provide_context=True)
     return dag
 
 
